@@ -1,0 +1,13 @@
+#nav li {
+  list-style: none;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+#nav li a {
+  color: black;
+}
+
+#nav li a.active {
+  color: #40a070;
+}
