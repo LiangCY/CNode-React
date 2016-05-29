@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
-import {fetchTopicsIfNeeded} from '../actions'
+import {fetchTopics} from '../actions/topic'
 import ListItem from '../components/ListItem'
 
 class List extends Component {
@@ -12,18 +12,20 @@ class List extends Component {
   }
 
   componentDidMount() {
-    let {dispatch, tab, page} = this.props
-    dispatch(fetchTopicsIfNeeded(tab, page))
+    let {dispatch, tab, topics, page} = this.props
+    if (topics.length === 0) {
+      dispatch(fetchTopics({tab, page}))
+    }
   }
 
   loadMore() {
     let {dispatch, tab, page} = this.props
-    dispatch(fetchTopicsIfNeeded(tab, page + 1))
+    dispatch(fetchTopics({tab, page: page + 1}))
   }
 
   render() {
 
-    const {topics, isFetching} = this.props
+    const {topics=[], isFetching} = this.props
     let bottom
     if (isFetching) {
       bottom = (
@@ -34,7 +36,6 @@ class List extends Component {
         <button onClick={this.loadMore}>load more</button>
       )
     }
-
     return (
       <div>
         <ul>
@@ -56,11 +57,11 @@ function mapStateToProps(state, ownProps) {
   const tab = state.routing.locationBeforeTransitions.pathname.substr(1) || 'all'
   const {
     isFetching,
-    items: topics,
+    topics,
     page
   } = state.topicsByTab[tab] || {
-    isFetching: true,
-    items: [],
+    isFetching: false,
+    topics: [],
     page: 1
   }
   return {

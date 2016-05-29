@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
-import {fetchTopic} from '../actions'
+import {fetchTopic} from '../actions/topic'
 
 class Topic extends Component {
 
@@ -12,7 +12,6 @@ class Topic extends Component {
 
   render() {
     const topic = this.props.topic;
-    console.log(topic)
     if (!topic.id) {
       return (
         <div>
@@ -21,9 +20,7 @@ class Topic extends Component {
       )
     }
     return (
-      <div dangerouslySetInnerHTML={{__html:topic.content}}>
-
-      </div>
+      <div dangerouslySetInnerHTML={{__html:topic.content}}></div>
     )
   }
 }
