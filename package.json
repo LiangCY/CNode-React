@@ -2,12 +2,15 @@
   "name": "cnode",
   "version": "1.0.0",
   "scripts": {
-    "start": "node server.js"
+    "dev": "set NODE_ENV=development & node server.js",
+    "build": "set NODE_ENV=production & webpack --config webpack.config.prod.js"
   },
   "dependencies": {
     "babel-polyfill": "^6.3.14",
+    "console-polyfill": "^0.2.2",
+    "es5-shim": "^4.5.9",
     "isomorphic-fetch": "^2.1.1",
-    "react": "^0.14.7",
+    "react": "^0.14.8",
     "react-dom": "^0.14.7",
     "react-redux": "^4.2.1",
     "react-router": "^2.4.1",
